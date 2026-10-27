@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<meta name="description" content="AseuGosto: descubra ofertas de tecnologia, casa, beleza e muito mais.">
+<title>AseuGosto | Ofertas para você</title>
+<style>
+:root {
+  --dark: #101827;
+  --yellow: #facc15;
+  --bg: #f4f6fa;
+  --muted: #687386;
+  --white: #fff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--dark);
+  background: var(--bg);
+}
+a { color: inherit; }
+header {
+  background: var(--dark);
+  color: white;
+  padding: 20px 5%;
+}
+.top {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.brand { font-size: 27px; font-weight: 800; }
+.brand span { color: var(--yellow); }
+.top small { color: #d0d5df; }
+main { max-width: 1100px; margin: auto; padding: 24px 18px; }
+.hero {
+  padding: 35px 25px;
+  background: var(--dark);
+  color: white;
+  border-radius: 20px;
+  margin-bottom: 25px;
+}
+.hero .tag {
+  color: var(--yellow);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.hero h1 { font-size: clamp(30px, 5vw, 46px); margin: 12px 0; }
+.hero p { color: #d0d5df; line-height: 1.6; max-width: 560px; }
+.search { margin-top: 22px; }
+input, select {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #d8deea;
+  border-radius: 10px;
+  background: white;
+  font-size: 16px;
+}
+.filters {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin: 18px 0 24px;
+}
+.filter {
+  border: 1px solid #dce1e9;
+  background: white;
+  padding: 10px 14px;
+  border-radius: 22px;
+  cursor: pointer;
+}
+.filter.active, .buy {
+  background: var(--yellow);
+  color: var(--dark);
+  border-color: var(--yellow);
+  font-weight: bold;
+}
+h2 { margin: 22px 0 15px; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+}
+.product {
+  background: white;
+  border: 1px solid #e8ebf1;
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.product-art {
+  min-height: 135px;
+  border-radius: 11px;
+  background: #f0f3f8;
+  display: grid;
+  place-items: center;
+  font-size: 58px;
+  margin-bottom: 14px;
+}
+.product .category {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: .6px;
+}
+.product h3 { font-size: 17px; margin: 8px 0; }
+.product p { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.price { font-size: 22px; font-weight: 800; margin: 8px 0 14px; }
+.buy {
+  display: block;
+  text-align: center;
+  padding: 13px 10px;
+  border-radius: 9px;
+  text-decoration: none;
+  margin-top: auto;
+}
+.buy.disabled { background: #e5e7eb; color: #6b7280; cursor: not-allowed; }
+.disclosure {
+  background: #fff9db;
+  border: 1px solid #f1df8a;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 25px;
+}
+.empty { padding: 35px 10px; text-align: center; color: var(--muted); }
+footer {
+  margin-top: 35px;
+  padding: 25px 18px;
+  background: var(--dark);
+  color: #d0d5df;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.8;
+}
+footer a { color: var(--yellow); }
+@media (max-width: 700px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .product { padding: 10px; }
+  .product-art { min-height: 100px; font-size: 45px; }
+  .product h3 { font-size: 15px; }
+  .price { font-size: 19px; }
+  .top small { display: none; }
+}
+@media (max-width: 380px) {
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div>
+      <div class="brand">a<span>seu</span>gosto.</div>
+      <small>Encontre. Compare. Aproveite.</small>
+    </div>
+    <div>🛍️ Sua vitrine de ofertas</div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">OFERTAS SELECIONADAS</div>
+    <h1>Boas compras começam aqui.</h1>
+    <p>Descubra produtos para sua casa, tecnologia, beleza e muito mais. Escolha o que combina com você!</p>
+    <div class="search">
+      <input id="search" type="search"
+        placeholder="🔎 Buscar um produto..."
+        aria-label="Buscar produtos">
+    </div>
+  </section>
+
+  <h2>Explore por categoria</h2>
+  <nav class="filters" id="filters" aria-label="Categorias"></nav>
+
+  <h2 id="section-title">Ofertas em destaque</h2>
+  <section class="grid" id="products" aria-live="polite"></section>
+
+  <aside class="disclosure">
+    <strong>📢 Transparência:</strong> A AseuGosto participa
+    do marketing de afiliados. Alguns links desta página são
+    links de afiliado. Podemos receber uma comissão se você
+    comprar por eles, sem custo adicional para você.
+    Os preços, a disponibilidade, o frete e as condições
+    finais devem ser conferidos no site do vendedor.
+  </aside>
+</main>
+
+<footer>
+  <strong>AseuGosto</strong> — Ofertas para todos os gostos.<br>
+  Somos um site independente de divulgação de produtos.
+  Não somos o Mercado Livre nem representamos oficialmente
+  a plataforma.<br>
+  As compras são realizadas no site do vendedor.
+  Preços e ofertas podem mudar sem aviso prévio.
+</footer>
+
+<script>
+// EDITE OS PRODUTOS NESTA LISTA.
+// Troque affiliateLink pelo link gerado no seu painel.
+// Use price: null se não quiser exibir um preço.
+// Não invente preços nem use links comuns como se fossem afiliados.
+const products = [
+  {
+    id: 1,
+    name: "Fone Bluetooth",
+    category: "Tecnologia",
+    description: "Confira opções de fones sem fio.",
+    icon: "🎧",
+    price: null,
+    affiliateLink: ""
+  },
+  {
+    id: 2,
+    name: "Air Fryer",
+    category: "Casa",
+    description: "Veja modelos para facilitar sua cozinha.",
+    icon: "🍟",
+    price: null,
+    affiliateLink: ""
+  },
+  {
+    id: 3,
+    name: "Smartwatch",
+    category: "Tecnologia",
+    description: "Explore relógios inteligentes.",
+    icon: "⌚",
+    price: null,
+    affiliateLink: ""
+  },
+  {
+    id: 4,
+    name: "Organizadores para casa",
+    category: "Casa",
+    description: "Ideias para organizar seus ambientes.",
+    icon: "🏠",
+    price: null,
+    affiliateLink: ""
+  },
+  {
+    id: 5,
+    name: "Cuidados pessoais",
+    category: "Beleza",
+    description: "Descubra produtos de beleza e autocuidado.",
+    icon: "✨",
+    price: null,
+    affiliateLink: ""
+  },
+  {
+    id: 6,
+    name: "Mochila para o dia a dia",
+    category: "Moda",
+    description: "Confira estilos para diferentes ocasiões.",
+    icon: "🎒",
+    price: null,
+    affiliateLink: ""
+  }
+];
+
+const categories = ["Todas", ...new Set(products.map(p => p.category))];
+let selectedCategory = "Todas";
+
+const filtersEl = document.getElementById("filters");
+const productsEl = document.getElementById("products");
+const searchEl = document.getElementById("search");
+
+function renderFilters() {
+  filtersEl.innerHTML = "";
+  categories.forEach(category => {
+    const button = document.createElement("button");
+    button.className = "filter" +
+      (category === selectedCategory ? " active" : "");
+    button.textContent = category;
+    button.type = "button";
+    button.setAttribute("aria-pressed",
+      String(category === selectedCategory));
+    button.addEventListener("click", () => {
+      selectedCategory = category;
+      renderFilters();
+      renderProducts();
+    });
+    filtersEl.appendChild(button);
+  });
+}
+
+function renderProducts() {
+  const term = searchEl.value.trim().toLocaleLowerCase("pt-BR");
+  const visible = products.filter(p =>
+    (selectedCategory === "Todas" ||
+      p.category === selectedCategory) &&
+    (p.name + " " + p.description + " " + p.category)
+      .toLocaleLowerCase("pt-BR").includes(term)
+  );
+
+  productsEl.innerHTML = "";
+
+  if (!visible.length) {
+    productsEl.innerHTML =
+      '<div class="empty">Nenhum produto encontrado. Tente outra busca.</div>';
+    return;
+  }
+
+  visible.forEach(p => {
+    const card = document.createElement("article");
+    card.className = "product";
+
+    const art = document.createElement("div");
+    art.className = "product-art";
+    art.setAttribute("aria-hidden", "true");
+    art.textContent = p.icon || "🛍️";
+
+    const category = document.createElement("div");
+    category.className = "category";
+    category.textContent = p.category;
+
+    const name = document.createElement("h3");
+    name.textContent = p.name;
+
+    const description = document.createElement("p");
+    description.textContent = p.description;
+
+    const price = document.createElement("div");
+    price.className = "price";
+    price.textContent = p.price == null
+      ? "Confira a oferta"
+      : Number(p.price).toLocaleString("pt-BR", {
+          style: "currency", currency: "BRL"
+        });
+
+    const link = document.createElement("a");
+    link.className = "buy";
+    link.textContent = p.affiliateLink
+      ? "Ver oferta ↗"
+      : "Link em breve";
+    if (p.affiliateLink) {
+      link.href = p.affiliateLink;
+      link.target = "_blank";
+      link.rel = "sponsored nofollow noopener noreferrer";
+      link.setAttribute("aria-label", "Ver oferta de " + p.name);
+    } else {
+      link.href = "#";
+      link.classList.add("disabled");
+      link.setAttribute("aria-disabled", "true");
+      link.addEventListener("click", event => event.preventDefault());
+    }
+
+    card.append(art, category, name, description, price, link);
+    productsEl.appendChild(card);
+  });
+}
+
+searchEl.addEventListener("input", renderProducts);
+renderFilters();
+renderProducts();
+</script>
+</body>
+</html>
+
